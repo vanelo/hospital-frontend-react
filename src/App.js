@@ -10,17 +10,17 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
+import BoardPatient from "./components/board-patient.component";
+import BoardDoctor from "./components/board-doctor.component";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.logOut = this.logOut.bind(this);
+    this.logout = this.logout.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
-      showAdminBoard: false,
+      showPatientBoard: false,
+      showDoctorBoard: false,
       currentUser: undefined,
     };
   }
@@ -31,44 +31,44 @@ class App extends Component {
     if (user && user.roles) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showPatientBoard: user.roles.includes("PATIENT"),
+        showDoctorBoard: user.roles.includes("DOCTOR"),
       });
     }
   }
 
-  logOut() {
+  logout() {
     AuthService.logout();
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, showPatientBoard, showDoctorBoard } = this.state;
 
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            bezKoder
+            Hospital app
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
-                Home
+                Inicio
               </Link>
             </li>
 
-            {showModeratorBoard && (
+            {showPatientBoard && (
               <li className="nav-item">
                 <Link to={"/mod"} className="nav-link">
-                  Moderator Board
+                  Herramientas paciente
                 </Link>
               </li>
             )}
 
-            {showAdminBoard && (
+            {showDoctorBoard && (
               <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
-                  Admin Board
+                  Herramientas doctor
                 </Link>
               </li>
             )}
@@ -76,7 +76,7 @@ class App extends Component {
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
-                  User
+                  Mi perfil
                 </Link>
               </li>
             )}
@@ -91,7 +91,7 @@ class App extends Component {
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  Cerrar Sesion
                 </a>
               </li>
             </div>
@@ -105,7 +105,7 @@ class App extends Component {
 
               <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
-                  Sign Up
+                  Registrarme
                 </Link>
               </li>
             </div>
@@ -119,8 +119,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
+            <Route path="/mod" component={BoardPatient} />
+            <Route path="/admin" component={BoardDoctor} />
           </Switch>
         </div>
       </div>

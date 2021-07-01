@@ -1,20 +1,20 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/auth/login";//"http://localhost:8080/api/auth/";
+const API_URL = "http://localhost:3000/auth/";
 
 class AuthService {
   login(username, password) {
     /*------Fake---------*/
-    const user = {
-      username: "vanelo",
-      roles: ["ROLE_MODERATOR"],
-      accessToken: "54sadf4564sda8sfd"
-    }
-    localStorage.setItem("user", JSON.stringify(user));
-    return new Promise(r => r(user));
+    // const user = {
+    //   username: "vanelo",
+    //   roles: ["DOCTOR", "PATIENT"],
+    //   accessToken: "54sadf4564sda8sfd"
+    // }
+    // localStorage.setItem("user", JSON.stringify(user));
+    // return new Promise(r => r(user));
     /*-------------------*/
     return axios
-      .post(API_URL + "signin", {
+      .post(API_URL + "login", {
         username,
         password
       })
@@ -49,7 +49,7 @@ class AuthService {
   getCurrentUser() {
     /*------Fake---------*/
     return {
-      roles: ["ROLE_MODERATOR"],
+      roles: ["DOCTOR", "PATIENT"],
       username: "vanelo",
       accessToken: "54sadf4564sda8sfd"
     }
