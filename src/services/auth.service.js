@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from './auth-header';
 
 const API_URL = "http://localhost:3000/auth/";
 
@@ -6,6 +7,7 @@ class AuthService {
   login(username, password) {
     /*------Fake---------*/
     // const user = {
+    //   userId: 1,
     //   username: "vanelo",
     //   roles: ["DOCTOR", "PATIENT"],
     //   accessToken: "54sadf4564sda8sfd"
@@ -32,14 +34,18 @@ class AuthService {
   }
 
   getCurrentUser() {
-    /*------Fake---------*/
-    return {
-      roles: ["DOCTOR", "PATIENT"],
-      username: "vanelo",
-      accessToken: "54sadf4564sda8sfd"
-    }
-    /*-------------------*/
-    return JSON.parse(localStorage.getItem('user'));;
+    // /*------Fake---------*/
+    // return {
+    //   roles: ["DOCTOR", "PATIENT"],
+    //   username: "vanelo",
+    //   accessToken: "54sadf4564sda8sfd"
+    // }
+    // /*-------------------*/
+    return JSON.parse(localStorage.getItem("user"));
+  }
+
+  getProfile(){
+      return axios.get(API_URL + "profile", { headers: authHeader() });
   }
 }
 

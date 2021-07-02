@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/auth.service";
+import * as utilities from "../utilities";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -8,16 +9,22 @@ export default class Profile extends Component {
 
     this.state = {
       redirect: null,
-      userReady: false,
-      currentUser: { username: "" }
+      userReady: false
     };
   }
 
   componentDidMount() {
     const currentUser = AuthService.getCurrentUser();
-
     if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
+
+    // Get profile info
+    AuthService.getProfile().then(
+      response=>{
+        this.setState({currentUser: response.data, userReady: true});
+      }, err=>{
+        console.log(err)
+        this.setState({currentUser: {}, userReady: true});
+      });
   }
 
   render() {
@@ -26,36 +33,66 @@ export default class Profile extends Component {
     }
 
     const { currentUser } = this.state;
-
     return (
       <div className="container">
-        {(this.state.userReady) ?
+        {(this.state.userReady) &&
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username}</strong> Profile
+            Perfil de <strong>{currentUser.username}</strong>
           </h3>
         </header>
-        <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.email}
-        </p>
-        <strong>Authorities:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul>
-      </div>: null}
+        <div className="container col-md-8">
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("firstName")}:</strong></div>
+            <div className="col">{currentUser.firstName || ""}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("lastName")}:</strong></div>
+            <div className="col">{currentUser.lastName || ""}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("dni")}:</strong></div>
+            <div className="col">{currentUser.dni || ""}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("email")}:</strong></div>
+            <div className="col">{currentUser.email || ""}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("phone")}:</strong></div>
+            <div className="col">{currentUser.phone || ""}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("sex")}:</strong></div>
+            <div className="col">{utilities.getSexName(currentUser.sex)}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("birthdate")}:</strong></div>
+            <div className="col">{utilities.getFormattedDate(currentUser.birthdate)}</div>
+          </p>
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("address")}:</strong></div>
+            <div className="col">{currentUser.address || ""}</div>
+          </p>
+          {currentUser.profesionalRegisterNumber && 
+            (<p className="row">
+              <div className="col"><strong>{utilities.translate("profesionalRegisterNumber")}:</strong></div>
+              <div className="col">{currentUser.profesionalRegisterNumber || ""}</div>
+            </p>)
+          }
+
+          <p className="row">
+            <div className="col"><strong>{utilities.translate("roles")}:</strong></div>
+            <div className="col"><ul>
+              {currentUser.roles &&
+                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+            </ul></div>
+          </p>
+        </div>
       </div>
+      }
+    </div>
     );
   }
 }
