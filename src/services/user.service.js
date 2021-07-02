@@ -44,6 +44,14 @@ class UserService {
     // /*-------------------*/
     return axios.post(API_URL + "users", data);
   }
+
+  getAll(id) {
+    let url = API_URL+"users";
+    if(id){
+        url += `?id=${id}`;
+    }
+    return axios.get(url, { headers: authHeader() });
+  }
 }
 
 export default new UserService();

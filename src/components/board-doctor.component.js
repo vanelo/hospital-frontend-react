@@ -77,12 +77,12 @@ export default class BoardDoctor extends Component {
           <DataGrid
             rows={this.state.consultations.data}
             columns={[
-              {field: "id", headerAlign: "center", headerClassName: "grid-header"},
-              {field: "name", headerAlign: "center", headerClassName: "grid-header"},
-              {field: "startDate", headerAlign: "center", headerClassName: "grid-header"},
-              {field: "endDate", headerAlign: "center", headerClassName: "grid-header"},
-              {field: "diagnosis", headerAlign: "center", headerClassName: "grid-header"},
-              {field: "recomendations", headerAlign: "center", headerClassName: "grid-header"}]}
+              {field: "id", headerAlign: "center", headerClassName: "grid-header", width: 150},
+              {field: "name", headerAlign: "center", headerClassName: "grid-header", width: 150},
+              {field: "startDate", headerAlign: "center", headerClassName: "grid-header", width: 150},
+              {field: "endDate", headerAlign: "center", headerClassName: "grid-header", width: 150},
+              {field: "diagnosis", headerAlign: "center", headerClassName: "grid-header", width: 150},
+              {field: "recomendations", headerAlign: "center", headerClassName: "grid-header", width: 150}]}
             pageSize={this.state.consultations.limit} />
         </div>
         <br/>
@@ -90,7 +90,7 @@ export default class BoardDoctor extends Component {
         <div style={{width: "100%", height: "330pt"}}>
           <DataGrid
             rows={this.state.exams.data}
-            columns={[{field: "id"}, {field: "name"}, {field: "type"}, {field: "startDate"}, {field: "endDate"}, {field: "results"}]}
+            columns={[{field: "id", width: 150}, {field: "name", width: 150}, {field: "type", width: 150}, {field: "startDate", width: 150}, {field: "endDate", width: 150}, {field: "results", width: 150}]}
             pageSize={this.state.exams.limit} />
         </div>
       </div>
