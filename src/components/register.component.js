@@ -188,7 +188,7 @@ export default class Register extends Component {
       UserService.register(data).then(
         response => {
           this.setState({
-            message: response.data.message,
+            message: "Registro Exitoso!",
             successful: true
           });
         },
