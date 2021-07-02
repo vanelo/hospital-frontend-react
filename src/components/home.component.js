@@ -35,6 +35,7 @@ export default class Home extends Component {
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>
+        <iframe style={{height: "490pt", width: "100%"}} src="https://portal.ips.gov.py/sistemas/ipsportal/noticias.php" />
       </div>
     );
   }

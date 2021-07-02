@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:3000/';
 class UserService {
   getPublicContent() {
     /*--------Fake----------*/
-    return new Promise(r => r({ data: "Public content"}));
+    return new Promise(r => r({ data: "Página de Inicio"}));
     /*----------------------*/
 
     return axios.get(API_URL + 'all');
