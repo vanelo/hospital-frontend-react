@@ -27,7 +27,6 @@ class App extends Component {
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
-    console.log(user)
 
     if (user && user.roles) {
       this.setState({
@@ -50,28 +49,28 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            <img style={{width: "30pt", marginRight: "4pt"}} src={logo}/>
+            <img style={{width: "30pt", marginRight: "4pt"}} src={logo} alt="logo"/>
             Hospital app
           </Link>
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Inicio
               </Link>
-            </li>
+            </li> */}
 
             {showPatientBoard && (
               <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Herramientas paciente
+                <Link to={"/patient"} className="nav-link">
+                  Página paciente
                 </Link>
               </li>
             )}
 
             {showDoctorBoard && (
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Herramientas doctor
+                <Link to={"/doctor"} className="nav-link">
+                  Página doctor
                 </Link>
               </li>
             )}
