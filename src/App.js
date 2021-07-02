@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import logo from "./hospital_logo.png";
 
 import AuthService from "./services/auth.service";
 
@@ -21,12 +22,12 @@ class App extends Component {
     this.state = {
       showPatientBoard: false,
       showDoctorBoard: false,
-      currentUser: undefined,
     };
   }
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
+    console.log(user)
 
     if (user && user.roles) {
       this.setState({
@@ -39,6 +40,7 @@ class App extends Component {
 
   logout() {
     AuthService.logout();
+    this.setState({ currentUser: null });
   }
 
   render() {
@@ -48,6 +50,7 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
+            <img style={{width: "30pt", marginRight: "4pt"}} src={logo}/>
             Hospital app
           </Link>
           <div className="navbar-nav mr-auto">
@@ -90,7 +93,7 @@ class App extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
+                <a href="/login" className="nav-link" onClick={this.logout}>
                   Cerrar Sesion
                 </a>
               </li>
