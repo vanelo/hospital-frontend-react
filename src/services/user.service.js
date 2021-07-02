@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:3000/profile/';//'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:3000/';
 
 class UserService {
   getPublicContent() {
@@ -31,6 +31,18 @@ class UserService {
     return new Promise(r => r({data: "I am an admin"}));
     /*----------------------*/
     return axios.get(API_URL + 'admin', { headers: authHeader() });
+  }
+
+
+  register(data) {
+    // /*------Fake---------*/
+    // return new Promise(r => r({
+    //   data: {
+    //     message: "SUCCESS"
+    //   }
+    // }));
+    // /*-------------------*/
+    return axios.post(API_URL + "users", data);
   }
 }
 

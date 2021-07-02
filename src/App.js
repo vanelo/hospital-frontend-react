@@ -119,8 +119,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardPatient} />
-            <Route path="/admin" component={BoardDoctor} />
+            <Route path="/patient" component={BoardPatient} />
+            <Route path="/doctor" component={BoardDoctor} />
           </Switch>
         </div>
       </div>
